@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-primary: #073d6a;
+  --color-bd-gray: #acb0b1;
+  --color-white: 	#ffffff;
+  --color-dark: #292929;
+  --color-dark-500: #333333;
+
+  /* Fonts */
+  --font-plex-sans: "IBM Plex Sans", sans-serif;
+  --font-roboto: "Roboto", sans-serif;
+  --font-lato: "Lato", sans-serif;
+}
+
+.box{
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+@layer{
+  .input-base{
+    @apply py-3 px-4 border-3 border-bd-gray text-2xl;
+  }
+
+  .btn-primary{
+    @apply bg-primary text-2xl text-white py-3 px-4;
+  }
+  .btn-primary:hover{
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s;
+  }
+}
+
+body{
+  font-family: "IBM Plex Sans", sans-serif;
+}
