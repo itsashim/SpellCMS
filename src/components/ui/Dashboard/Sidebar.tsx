@@ -1,9 +1,7 @@
 import { Link } from 'react-router'
 import { MdSpaceDashboard } from "react-icons/md";
 import { IoLogOut } from "react-icons/io5";
-import { useAuth } from '../context/AuthContext';
-
-
+import { useAuth } from '../../../context/AuthContext';
 
 function Sidebar() {
     const {logout} = useAuth();

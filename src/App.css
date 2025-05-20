@@ -35,6 +35,11 @@
     @apply flex items-center text-dark-500 ps-10 py-5 gap-3 text-xl hover:cursor-pointer hover:bg-primary hover:text-white;
     transition: all 0.3s;
   }
+
+
+  .table-head{
+    @apply px-6 py-3 text-left text-lg font-medium text-gray-500 tracking-wider;
+  }
 }
 
 body{
