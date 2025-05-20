@@ -1,6 +1,8 @@
 import DashboardLayout from "../components/ui/Dashboard/DashboardLayout";
 import PostTableRow from "../components/ui/Dashboard/PostTableRow";
 import { usePosts } from "../hooks/usePost";
+import CreateBtn from "../components/CreateBtn";
+
 
 interface Post {
   id: number;
@@ -19,6 +21,9 @@ function Dashboard() {
   console.log(posts);
   return (
     <DashboardLayout>
+      <CreateBtn width="1600px" to="/create-post" ariaLabel="Create new post">
+        Create Post
+      </CreateBtn>
       <div className="rounded-lg border border-gray-200 shadow-sm max-w-[1600px] mx-auto">
         <table className="min-w-full divide-y divide-gray-200 bg-white text-xl">
           {/* Table Header */}
