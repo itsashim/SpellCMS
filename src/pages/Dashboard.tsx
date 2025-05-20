@@ -1,5 +1,5 @@
 import DashboardLayout from "../components/ui/Dashboard/DashboardLayout";
-import PostTableRow from "../components/ui/Table/PostTableRow";
+import PostTableRow from "../components/ui/Dashboard/PostTableRow";
 import { usePosts } from "../hooks/usePost";
 
 interface Post {
