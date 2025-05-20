@@ -7,10 +7,10 @@ function Authors() {
     const {data:authors =[]} = useAuthors();
   return (
     <DashboardLayout>
-      <CreateBtn width="1000px" to="/authors/create" ariaLabel="Create new Author">
+      <CreateBtn width="1600px" to="/authors/create" ariaLabel="Create new Author">
         Create Author
       </CreateBtn>
-      <div className="rounded-lg border border-gray-200 shadow-sm max-w-[1000px] mx-auto">
+      <div className="rounded-lg border border-gray-200 shadow-sm max-w-[1600px] mx-auto">
         <table className="min-w-full divide-y divide-gray-200 bg-white text-xl">
           {/* Table Header */}
           <thead className="bg-gray-50">
@@ -19,7 +19,7 @@ function Authors() {
               <th className="table-head">Author Name</th>
               <th className="table-head">Avatar</th>
               <th className='table-head'>Bio</th>
-              <th className='table-head text-left'>Actions</th>
+              <th className='table-head flex justify-end'>Actions</th>
             </tr>
           </thead>
           {/* Table Body */}

@@ -1,9 +1,214 @@
-import React from 'react'
+import { useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { FiUpload } from 'react-icons/fi';
+import { useAuthors } from '../../../hooks/useAuthors';
+import { useCategories } from '../../../hooks/useCategories';
+import JoditEditor from 'jodit-react';
 
-function CreatePostForm() {
+type PostFormData = {
+  title: string;
+  body: string;
+  author: string;
+  category: string;
+  tags: string[];
+  status: 'draft' | 'published';
+  coverImage: FileList;
+};
+
+export default function PostForm() {
+  const {data:authors=[]} = useAuthors();
+  const {data:categories=[]} = useCategories();
+  const [tagInput, setTagInput] = useState('');
+  const [content, setContent]= useState("");
+  const editor = useRef(null)
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<PostFormData>({
+    defaultValues: {
+      status: 'draft',
+      tags: [],
+    },
+  });
+
+  const onSubmit = (data: PostFormData) => {
+    console.log('Form data:', data);
+    // Handle form submission
+  };
+
+  const coverImage = watch('coverImage');
+  const tags = watch('tags');
+
+
+  const addTag = () => {
+    if (tagInput && !tags.includes(tagInput)) {
+      setValue('tags', [...tags, tagInput]);
+      setTagInput('');
+    }
+  };
+
+  const removeTag = (tagToRemove: string) => {
+    setValue(
+      'tags',
+      tags.filter((tag) => tag !== tagToRemove)
+    );
+  };
+
   return (
-    <div>CreatePostForm</div>
-  )
-}
+    <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl mx-auto p-6 bg-white rounded-lg mt-10">
+      {/* Title */}
+      <div className="mb-6">
+        <label className="form-label">Title</label>
+        <input
+          {...register('title', { required: 'Title is required' })}
+          className="form-input"
+          placeholder="Post title"
+        />
+        {errors.title && <p className="text-red-500 mt-1">{errors.title.message}</p>}
+      </div>
 
-export default CreatePostForm
+      {/* Body - Markdown/WYSIWYG */}
+      <div className="mb-6">
+        <label className="form-label">Content</label>
+        <JoditEditor
+            className='rounded-none'
+			ref={editor}
+			value={content}
+			onChange={newContent => setContent(newContent)}
+		/>
+      </div>
+
+      {/* Author Dropdown */}
+      <div className="mb-6">
+        <label className="form-label">Author</label>
+        <select
+          {...register('author', { required: 'Author is required' })}
+          className="form-input"
+        >
+          <option value="">Select an author</option>
+          {authors.map((author) => (
+            <option key={author.id} value={author.name}>
+              {author.name}
+            </option>
+          ))}
+        </select>
+        {errors.author && <p className="text-red-500 mt-1">{errors.author.message}</p>}
+      </div>
+
+      {/* Category Dropdown */}
+      <div className="mb-6">
+        <label className="form-label">Category</label>
+        <select
+          {...register('category', { required: 'Category is required' })}
+          className="form-input"
+        >
+          <option value="">Select a category</option>
+          {categories.map((category) => (
+            <option key={category.id} value={category.name}>
+              {category.name}
+            </option>
+          ))}
+        </select>
+        {errors.category && <p className="text-red-500 mt-1">{errors.category.message}</p>}
+      </div>
+
+      {/* Tags Multi-input */}
+      <div className="mb-6">
+        <label className="form-label">Tags</label>
+        <div className="flex gap-2 mb-2">
+          <input
+            type="text"
+            value={tagInput}
+            onChange={(e) => setTagInput(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())}
+            className="form-input"
+            placeholder="Add tags (press Enter)"
+          />
+          <button
+            type="button"
+            onClick={addTag}
+            className="bg-primary text-white px-4 rounded-lg"
+          >
+            Add
+          </button>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {tags.map((tag) => (
+            <span
+              key={tag}
+              className="bg-gray-100 px-3 py-1 rounded-full flex items-center"
+            >
+              {tag}
+              <button
+                type="button"
+                onClick={() => removeTag(tag)}
+                className="ml-2 text-gray-500 hover:text-red-500"
+              >
+                ×
+              </button>
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Status Toggle */}
+      <div className="mb-6">
+        <label className="block text-lg font-medium mb-2">Status</label>
+        <div className="flex items-center">
+          <button
+            type="button"
+            onClick={() => setValue('status', 'draft')}
+            className={`px-4 py-2 rounded-none ${watch('status') === 'draft' ? 'bg-yellow-500 text-yellow-50' : 'bg-gray-200'}`}
+          >
+            Draft
+          </button>
+          <button
+            type="button"
+            onClick={() => setValue('status', 'published')}
+            className={`px-4 py-2 rounded-none ${watch('status') === 'published' ? 'bg-green-500 text-green-50' : 'bg-gray-200'}`}
+          >
+            Published
+          </button>
+        </div>
+      </div>
+
+      {/* Cover Image */}
+      <div className="mb-6">
+        <label className="block text-lg font-medium mb-2">Cover Image</label>
+        <div className="flex items-center gap-4">
+          <label className="flex-1">
+            <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-primary transition">
+              <FiUpload className="mx-auto text-2xl mb-2 text-gray-400" />
+              <p className="text-gray-500">Click to upload or drag and drop</p>
+              <input
+                type="file"
+                {...register('coverImage')}
+                className="hidden"
+                accept="image/*"
+              />
+            </div>
+          </label>
+          {coverImage?.[0] && (
+            <div className="w-32 h-32 rounded-lg overflow-hidden border">
+              <img
+                src={URL.createObjectURL(coverImage[0])}
+                alt="Cover preview"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          )}
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        className="w-full btn-primary"
+      >
+        Create Post
+      </button>
+    </form>
+  );
+}

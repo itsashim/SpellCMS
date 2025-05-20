@@ -7,10 +7,10 @@ function Category() {
     const {data:categories =[]} = useCategories();
   return (
     <DashboardLayout>
-      <CreateBtn width='800px' to="/category/create" ariaLabel="Create new category">
+      <CreateBtn width='1600px' to="/category/create" ariaLabel="Create new category">
         Create Category
       </CreateBtn>
-      <div className="rounded-lg border border-gray-200 shadow-sm max-w-[800px] mx-auto">
+      <div className="rounded-lg border border-gray-200 shadow-sm max-w-[1600px] mx-auto">
         <table className="min-w-full divide-y divide-gray-200 bg-white text-xl">
           {/* Table Header */}
           <thead className="bg-gray-50">

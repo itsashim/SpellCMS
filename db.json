@@ -40,6 +40,12 @@
       "name": "John Smith", 
       "avatar": "https://i.pravatar.cc/150?img=2",
       "bio": "UI/UX Specialist" 
+    },
+    { 
+      "id": 3, 
+      "name": "Ashim Rai", 
+      "avatar": "https://i.pravatar.cc/150?img=2",
+      "bio": "UI/UX Specialist" 
     }
   ]
 }

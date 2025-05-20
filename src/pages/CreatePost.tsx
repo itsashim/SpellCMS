@@ -1,9 +1,10 @@
+import CreatePostForm from '../components/ui/Dashboard/CreatePostForm'
 import DashboardLayout from '../components/ui/Dashboard/DashboardLayout'
 
 function CreatePost() {
   return (
     <DashboardLayout>
-        Create Post
+        <CreatePostForm/>
     </DashboardLayout>
   )
 }
