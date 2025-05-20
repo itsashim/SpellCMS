@@ -9,3 +9,8 @@ export const getCategories = async ():Promise<Category[]> => {
   const response = await apiClient.get('/categories');
   return response.data;
 };
+
+export const createCategories = async (data: Category) => {
+  const response = await apiClient.post("/categories", data);
+  return response.data;
+};

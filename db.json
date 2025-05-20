@@ -5,7 +5,10 @@
       "title": "Getting Started with React",
       "author": "Jane Doe",
       "category": "Technology",
-      "tags": ["react", "frontend"],
+      "tags": [
+        "react",
+        "frontend"
+      ],
       "status": "published",
       "createdAt": "2023-07-20T09:00:00Z",
       "content": "Learn React fundamentals...",
@@ -16,7 +19,10 @@
       "title": "State Management in 2023",
       "author": "John Smith",
       "category": "Technology",
-      "tags": ["zustand", "react-query"],
+      "tags": [
+        "zustand",
+        "react-query"
+      ],
       "status": "draft",
       "createdAt": "2023-07-18T14:30:00Z",
       "content": "Comparing state solutions...",
@@ -24,28 +30,45 @@
     }
   ],
   "categories": [
-    { "id": 1, "name": "Technology" },
-    { "id": 2, "name": "Business" },
-    { "id": 3, "name": "Lifestyle" }
+    {
+      "id": 1,
+      "name": "ashim"
+    },
+    {
+      "id": 2,
+      "name": "Hello"
+    },
+    {
+      "id": 3,
+      "name": "Hi"
+    },
+    {
+      "id": 4,
+      "name": "Whats up"
+    },
+    {
+      "id": 5,
+      "name": "wow"
+    }
   ],
   "authors": [
-    { 
-      "id": 1, 
-      "name": "Jane Doe", 
+    {
+      "id": 1,
+      "name": "Jane Doe",
       "avatar": "https://i.pravatar.cc/150?img=1",
-      "bio": "Senior Frontend Developer" 
+      "bio": "Senior Frontend Developer"
     },
-    { 
-      "id": 2, 
-      "name": "John Smith", 
+    {
+      "id": 2,
+      "name": "John Smith",
       "avatar": "https://i.pravatar.cc/150?img=2",
-      "bio": "UI/UX Specialist" 
+      "bio": "UI/UX Specialist"
     },
-    { 
-      "id": 3, 
-      "name": "Ashim Rai", 
+    {
+      "id": 3,
+      "name": "Ashim Rai",
       "avatar": "https://i.pravatar.cc/150?img=2",
-      "bio": "UI/UX Specialist" 
+      "bio": "UI/UX Specialist"
     }
   ]
 }
