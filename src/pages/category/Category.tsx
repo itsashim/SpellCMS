@@ -1,7 +1,7 @@
-import CreateBtn from '../components/CreateBtn';
-import CategoryTableRow from '../components/ui/Category/CategoryTableRow'
-import DashboardLayout from '../components/ui/Dashboard/DashboardLayout'
-import { useCategories } from '../hooks/useCategories'
+import CreateBtn from "../../components/CreateBtn";
+import CategoryTableRow from "../../components/ui/Category/CategoryTableRow";
+import DashboardLayout from "../../components/ui/Dashboard/DashboardLayout";
+import { useCategories } from "../../hooks/useCategories";
 
 function Category() {
     const {data:categories =[]} = useCategories();

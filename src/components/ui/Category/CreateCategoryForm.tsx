@@ -1,8 +1,6 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-// import { useMutation } from "@tanstack/react-query";
-// import { createCategories } from "../../../api/categories";
 import { useCategories, useCategoriesMutation } from "../../../hooks/useCategories";
 import { useNavigate } from "react-router";
 
@@ -28,7 +26,7 @@ function CreateCategoryForm() {
 
   const onSubmit = async (data: CategoryFormData) => {
     const newCategory = {
-      id: categories.length + 1,
+      id: String(categories.length + 1),
       name: data.name,
     };
     navigate("/category")

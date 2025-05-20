@@ -1,12 +1,14 @@
 import { Route, Routes } from 'react-router'
-import Login from '../pages/Login'
 import ProtectedRoute from '../components/ProtectedRoute'
 import Dashboard from '../pages/Dashboard'
-import Category from '../pages/Category'
-import Authors from '../pages/Authors'
+
 import CreatePost from '../pages/CreatePost'
-import CreateCategory from '../pages/CreateCategory'
-import CreateAuthor from '../pages/CreateAuthor'
+import CreateCategory from '../pages/category/CreateCategory'
+import CreateAuthor from '../pages/author/CreateAuthor'
+import Authors from '../pages/author/Authors'
+import Category from '../pages/category/Category'
+import Login from '../pages/auth/Login'
+import EditCategory from '../pages/category/EditCategory'
 
 function AppRoutes() {
   return (
@@ -19,6 +21,7 @@ function AppRoutes() {
             <Route path="/authors/create" element={<CreateAuthor/>} />
             <Route path="/category" element={<Category />} />
             <Route path="/category/create" element={<CreateCategory />} />
+            <Route path="/category/edit/:id" element={<EditCategory />} />
           </Route>
         </Routes>
   )

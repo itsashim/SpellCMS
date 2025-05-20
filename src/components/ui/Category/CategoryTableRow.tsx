@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import { type Category } from '../../../api/categories';
+import { Link } from 'react-router';
 
 interface CategoryTableRowProps {
   data: Category;
 }
 function CategoryTableRow({data}:CategoryTableRowProps) {
-      const [curId, setCurId] = useState<number | null>(null);
-      const handleAction = (id: number) => {
+      const [curId, setCurId] = useState<string | null>(null);
+      const handleAction = (id: string) => {
         setCurId((prev) => (prev === id ? null : id));
       };
   return (
@@ -26,7 +27,9 @@ function CategoryTableRow({data}:CategoryTableRowProps) {
                 >
                 <ul className="text-sm">
                     <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                    Edit
+                      <Link to={`/category/edit/${curId}`}>
+                        Edit
+                      </Link>
                     </li>
                     <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
                     Delete

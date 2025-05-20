@@ -2,10 +2,10 @@ import {z} from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm} from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
-import { mockUsers } from "../services/users";
 import { useNavigate } from "react-router";
-import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
+import { useAuth } from "../../context/AuthContext";
+import { mockUsers } from "../../services/users";
 
 const loginSchema = z.object({
     email: z.string().email("invalid email address"),

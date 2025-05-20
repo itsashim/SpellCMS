@@ -1,7 +1,7 @@
-import CreateBtn from '../components/CreateBtn';
-import AuthorsTableRow from '../components/ui/Authors/AuthorsTableRow'
-import DashboardLayout from '../components/ui/Dashboard/DashboardLayout'
-import { useAuthors } from '../hooks/useAuthors'
+import CreateBtn from "../../components/CreateBtn";
+import AuthorsTableRow from "../../components/ui/Authors/AuthorsTableRow";
+import DashboardLayout from "../../components/ui/Dashboard/DashboardLayout";
+import { useAuthors } from "../../hooks/useAuthors";
 
 function Authors() {
     const {data:authors =[]} = useAuthors();
