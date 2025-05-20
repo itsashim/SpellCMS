@@ -19,7 +19,6 @@ export const getCategoryById = async (id:string):Promise<Category[]> => {
 };
 
 // Update Categories
-
 export const updateCategory = async ({ id, data }: { id: string; data: { name: string } }) => {
   try {
     const response = await apiClient.patch<Category>(`/categories/${id}`, data);
@@ -30,6 +29,11 @@ export const updateCategory = async ({ id, data }: { id: string; data: { name: s
   }
 };
 
+// Delete Categories
+export const deleteCategories = (id:string)=>{
+const response = apiClient.delete(`/categories/${id}`)  
+return response;
+}
 
 // Create New Categories
 export const createCategories = async (data: Category) => {

@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import {  createCategories, getCategories, getCategoryById, updateCategory } from '../api/categories';
+import {  createCategories, deleteCategories, getCategories, getCategoryById, updateCategory } from '../api/categories';
 import { toast } from 'sonner';
 
 
@@ -37,6 +37,18 @@ export const useUpdateCategory = () => {
     }
   });
 };
+
+// Delete Category
+export const useDeleteCategory = ()=>{
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (id:string) => deleteCategories(id),
+    onSuccess: ()=>{
+    queryClient.invalidateQueries({ queryKey: ['categories'] });
+    }
+  })
+}
+
 // Create Category
 export const useCategoriesMutation = ()=>{
   const queryClient = useQueryClient()
@@ -44,7 +56,6 @@ export const useCategoriesMutation = ()=>{
     mutationFn: createCategories,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['categories'] });
-      toast.success("Category Created");
     },
   })
 }

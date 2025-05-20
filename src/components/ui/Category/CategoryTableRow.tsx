@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import { type Category } from '../../../api/categories';
 import { Link } from 'react-router';
+import { useDeleteCategory } from '../../../hooks/useCategories';
 
 interface CategoryTableRowProps {
   data: Category;
@@ -11,6 +12,10 @@ function CategoryTableRow({data}:CategoryTableRowProps) {
       const handleAction = (id: string) => {
         setCurId((prev) => (prev === id ? null : id));
       };
+      const {mutate:deleteCategory} = useDeleteCategory();
+      const handleDelete = (id:string)=>{
+        deleteCategory(id);
+      }
   return (
         <tr className="hover:bg-gray-50 transition-colors relative">
             <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">{data.id}</td>
@@ -27,12 +32,12 @@ function CategoryTableRow({data}:CategoryTableRowProps) {
                 >
                 <ul className="text-sm">
                     <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                      <Link to={`/category/edit/${curId}`}>
+                      <Link className='w-full' to={`/category/edit/${curId}`}>
                         Edit
                       </Link>
                     </li>
-                    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                    Delete
+                    <li onClick={()=>handleDelete(data.id)} className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                        Delete
                     </li>
                 </ul>
                 </div>

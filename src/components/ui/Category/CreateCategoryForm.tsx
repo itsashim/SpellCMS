@@ -15,7 +15,6 @@ function CreateCategoryForm() {
   const { data: categories = [] } = useCategories();
   const {mutate} = useCategoriesMutation();
   const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
@@ -24,9 +23,15 @@ function CreateCategoryForm() {
     resolver: zodResolver(categorySchema),
   });
 
+  // Increase One in Id
+  const maxId = categories.reduce((max, item) => {
+    const id = typeof item.id === "string" ? parseInt(item.id, 10) : item.id;
+    return Math.max(max, id ?? 0);
+  }, 0);
+
   const onSubmit = async (data: CategoryFormData) => {
     const newCategory = {
-      id: String(categories.length + 1),
+        id: String(maxId + 1),
       name: data.name,
     };
     navigate("/category")
