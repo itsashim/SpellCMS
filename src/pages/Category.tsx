@@ -13,7 +13,7 @@ function Category() {
             <tr>
               <th className="table-head">id</th>
               <th className="table-head">Category Name</th>
-              <th className="table-head flex justify-end">Action</th>
+              <th className="table-head flex justify-end">Actions</th>
             </tr>
           </thead>
           {/* Table Body */}

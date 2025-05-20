@@ -3,6 +3,8 @@ import { MdSpaceDashboard } from "react-icons/md";
 import { IoLogOut } from "react-icons/io5";
 import { useAuth } from '../../../context/AuthContext';
 import { TbCategoryPlus } from "react-icons/tb";
+import { IoMdPeople } from "react-icons/io";
+
 
 
 function Sidebar() {
@@ -20,6 +22,12 @@ function Sidebar() {
                    <Link className='sidebar-link' to="/category">
                    <TbCategoryPlus />
                     Category</Link>
+                </li>
+                <li className=''>
+                   <Link className='sidebar-link' to="/authors">
+                   <IoMdPeople />
+                    Authors
+                    </Link>
                 </li>
             </ul>
             <button onClick={logout} className='sidebar-link w-full'><IoLogOut />Logout</button>
