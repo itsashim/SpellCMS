@@ -9,7 +9,7 @@ function DashboardLayout({children}: DashboardLayoutProps) {
 <div className="grid grid-cols-[auto_1fr] min-h-screen">
     <Sidebar />
   <main className="p-6 overflow-auto">
-    <section className="max-w-6xl mx-auto">
+    <section className="mx-auto">
       {children}
     </section>
   </main>
