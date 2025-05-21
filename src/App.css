@@ -51,6 +51,9 @@
   .form-input{
     @apply border-1 px-3 py-2 border-bd-gray w-full text-xl;
   }
+  .form-select{
+    @apply border-1 px-3 py-2 border-bd-gray w-30 text-xl;
+  }
 }
 
 body{
