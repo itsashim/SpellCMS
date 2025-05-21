@@ -1,7 +1,9 @@
+import { useState } from "react";
 import DashboardLayout from "../components/ui/Dashboard/DashboardLayout";
 import PostTableRow from "../components/ui/Dashboard/PostTableRow";
 import { usePosts } from "../hooks/usePost";
-import CreateBtn from "../components/CreateBtn";
+import { IoAddSharp } from "react-icons/io5";
+import { Link } from "react-router";
 
 
 interface Post {
@@ -18,11 +20,28 @@ interface Post {
 
 function Dashboard() {
   const {data:posts = []} = usePosts();
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredPosts = posts.filter((post) => {
+    const lowerSearch = searchTerm.toLowerCase();
+    return (
+      post.title.toLowerCase().includes(lowerSearch) ||
+      post.tags.some((tag) => tag.toLowerCase().includes(lowerSearch))
+    );
+  });
+
   return (
     <DashboardLayout>
-      <CreateBtn width="1600px" to="/create-post" ariaLabel="Create new post">
-        Create Post
-      </CreateBtn>
+      <div className="flex max-w-[1600px] mx-auto justify-between mb-7">
+        <div>
+            <input className="form-input" type="text" placeholder="Search blog..." value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)} />
+        </div>
+        <Link to="/create-post"  className='btn-create ms-auto'>
+          <IoAddSharp className="text-2xl text-white"/>
+          Create Post
+        </Link>
+      </div>
       <div className="rounded-lg border border-gray-200 shadow-sm max-w-[1600px] mx-auto">
         <table className="min-w-full divide-y divide-gray-200 bg-white text-xl">
           {/* Table Header */}
@@ -41,7 +60,7 @@ function Dashboard() {
 
           {/* Table Body */}
           <tbody className="divide-y divide-gray-200 text-lg">
-            {posts.map((post:Post)=>{
+            {filteredPosts.map((post:Post)=>{
               return <PostTableRow key={post.id} data={post}/>
             })}
           </tbody>
