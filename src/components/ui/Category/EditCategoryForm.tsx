@@ -39,6 +39,8 @@ function EditCategoryForm() {
 
   const onSubmit = async (data: CategoryFormData) => {
     if (!categoryId) return;
+
+    // Mutation Update Category
     updateCategory(
       { id: categoryId, data },
       {
@@ -52,6 +54,7 @@ function EditCategoryForm() {
 );
   };
 
+  // Loader
   if (isLoading) return <div>Loading...</div>;
 
   return (

@@ -3,7 +3,7 @@ import PostTableRow from "./PostTableRow"
 
 function DashboardTable({data}) {
   return (
-        <table className="max-w-[100%] divide-y divide-gray-200 bg-white text-xl">
+        <table className="w-full divide-y divide-gray-200 bg-white text-xl">
           {/* Table Header */}
           <thead className="bg-gray-50">
             <tr>

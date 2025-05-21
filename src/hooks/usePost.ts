@@ -13,11 +13,12 @@ export interface Post {
   content: string;
   coverImage?: string;
 }
-// Variables for update mutation
+
 interface UpdatePostVariables {
   id: string;
   data: Post; 
 }
+
 // Get Posts
 export const usePosts = () => {
   return useQuery({
@@ -54,7 +55,6 @@ export const useUpdatePosts = () => {
   return useMutation({
     mutationFn: ({ id, data }:UpdatePostVariables) =>  updatePosts({  id, data}),
     onSuccess: () => {
-      // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ['posts'] });
       toast.success("Posts updated successfully");
     },

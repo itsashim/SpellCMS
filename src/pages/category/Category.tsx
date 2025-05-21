@@ -11,7 +11,7 @@ function Category() {
         Create Category
       </CreateBtn>
       <div className="rounded-lg border border-gray-200 shadow-sm max-w-[1600px] mx-auto">
-        <table className="min-w-full divide-y divide-gray-200 bg-white text-xl">
+        <table className="w-full divide-y divide-gray-200 bg-white text-xl">
           {/* Table Header */}
           <thead className="bg-gray-50">
             <tr>

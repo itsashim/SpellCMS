@@ -1,3 +1,4 @@
+// Uploads image file to cloudinary
 export const uploadImageToCloudinary = async (file: File) => {
     const formData = new FormData();
     formData.append('file', file);

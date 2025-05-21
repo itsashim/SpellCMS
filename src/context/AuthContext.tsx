@@ -12,7 +12,6 @@ type AuthProviderProps = {
   children: ReactNode;
 };
 
-
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({children}:AuthProviderProps) {
@@ -38,6 +37,7 @@ export function AuthProvider({children}:AuthProviderProps) {
   )
 }
 
+// Auth Hook 
 export const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
   if (!context) {

@@ -10,9 +10,9 @@ function App() {
 
   return (
     <AuthProvider>
-    <QueryClientProvider client={queryClient}>
-      <AppRoutes/>
-    </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <AppRoutes/>
+      </QueryClientProvider>
     </AuthProvider>
   )
 }

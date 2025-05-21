@@ -29,7 +29,7 @@ export const useUpdateCategory = () => {
     mutationFn: ({ id, data }: { id: string; data: { name: string } }) => 
     updateCategory({ id, data }),
     onSuccess: () => {
-      // Invalidate and refetch
+      // Invalidates and refetch
       queryClient.invalidateQueries({ queryKey: ['categories'] });
       toast.success("Category updated successfully");
     },

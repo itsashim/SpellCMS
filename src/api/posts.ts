@@ -12,7 +12,6 @@ export interface Post {
   coverImage?: string;
 }
 
-
 // Get Posts
 export const getPosts = async () => {
   const response = await apiClient.get('/posts');
@@ -44,7 +43,7 @@ export const updatePosts = async ({ id, data }: { id: string; data: Post }) => {
 
 // Delete Posts
 export const deletePosts = (id:string)=>{
-const response = apiClient.delete(`/posts/${id}`)  
-return response;
+  const response = apiClient.delete(`/posts/${id}`)  
+  return response;
 }
 

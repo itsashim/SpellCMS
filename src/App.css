@@ -60,6 +60,7 @@ body{
   font-family: "IBM Plex Sans", sans-serif;
 }
 
+/* Hiding Jodit default status bar */
 .jodit-react-container .jodit-status-bar{
   display: none;
 }

@@ -4,8 +4,6 @@ export interface Category {
   id: string;
   name: string;
 }
-
-
 // Get Categories
 export const getCategories = async ():Promise<Category[]> => {
   const response = await apiClient.get('/categories');
@@ -31,8 +29,8 @@ export const updateCategory = async ({ id, data }: { id: string; data: { name: s
 
 // Delete Categories
 export const deleteCategories = (id:string)=>{
-const response = apiClient.delete(`/categories/${id}`)  
-return response;
+  const response = apiClient.delete(`/categories/${id}`)  
+  return response;
 }
 
 // Create New Categories

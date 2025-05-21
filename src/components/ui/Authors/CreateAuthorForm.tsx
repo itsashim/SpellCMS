@@ -28,17 +28,19 @@ function CreateAuthorForm() {
   } = useForm<AuthorFormData>({
     resolver: zodResolver(authorSchema),
   });
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [uploadError, setUploadError] = useState('');
   const coverImage = watch('avatar');
 
-  const {data:authors=[]} = useAuthors();
+    // Getting Authors
+    const {data:authors=[]} = useAuthors();
 
+    // Calculates Maximum number of id number
     const maxId = authors.reduce((max, item) => {
-    const id = typeof item.id === "string" ? parseInt(item.id, 10) : item.id;
-    return Math.max(max, id ?? 0);
-  }, 0);
+      const id = typeof item.id === "string" ? parseInt(item.id, 10) : item.id;
+      return Math.max(max, id ?? 0);
+    }, 0);
 
   const {mutate:createAuthor} = useAuthorMutation()
 
@@ -78,6 +80,7 @@ function CreateAuthorForm() {
     }
   };
 
+  // Loading while uploading image 
 if (isSubmitting) {
   return (
     <Loading>Creating Authors</Loading>

@@ -7,12 +7,15 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "noImplicitAny": false,
+    "types": ["jest", "node"],
+    "esModuleInterop": true,      // recommended by ts-jest warning
+
 
 
     /* Bundler mode */
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
+    "verbatimModuleSyntax": false,
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
@@ -25,5 +28,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"]
+  "include": ["src", "src/jest.setup.ts"]
 }

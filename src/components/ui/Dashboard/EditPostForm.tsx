@@ -35,20 +35,20 @@ export default function EditPostForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    setValue,
-    reset,
-    formState: { errors },
-  } = useForm<PostFormData>({
-    defaultValues: {
-      status: 'draft',
-      tags: [],
-    },
-  });
-  const { mutate: updatePost } = useUpdatePosts();
+    const {
+      register,
+      handleSubmit,
+      watch,
+      setValue,
+      reset,
+      formState: { errors },
+    } = useForm<PostFormData>({
+      defaultValues: {
+        status: 'draft',
+        tags: [],
+      },
+    });
+    const { mutate: updatePost } = useUpdatePosts();
 
   // Set form values when post data loads
   useEffect(() => {
@@ -132,7 +132,7 @@ export default function EditPostForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl mx-auto p-6 bg-white rounded-lg mt-10">
-      {/* Title */}
+      {/* Post Title */}
       <div className="mb-6">
         <label className="form-label">Title</label>
         <input
@@ -143,7 +143,7 @@ export default function EditPostForm() {
         {errors.title && <p className="text-red-500 mt-1">{errors.title.message}</p>}
       </div>
 
-      {/* Content Editor */}
+      {/* Body - content */}
       <div className="mb-6">
         <label className="form-label">Content</label>
         <JoditEditor
@@ -154,7 +154,7 @@ export default function EditPostForm() {
         />
       </div>
 
-      {/* Author Dropdown */}
+      {/* Authors Dropdown */}
       <div className="mb-6">
         <label className="form-label">Author</label>
         <select
@@ -171,7 +171,7 @@ export default function EditPostForm() {
         {errors.author && <p className="text-red-500 mt-1">{errors.author.message}</p>}
       </div>
 
-      {/* Category Dropdown */}
+      {/* Categories Dropdown */}
       <div className="mb-6">
         <label className="form-label">Category</label>
         <select
@@ -188,7 +188,7 @@ export default function EditPostForm() {
         {errors.category && <p className="text-red-500 mt-1">{errors.category.message}</p>}
       </div>
 
-      {/* Tags Multi-input */}
+      {/* Tags Multi input */}
       <div className="mb-6">
         <label className="form-label">Tags</label>
         <div className="flex gap-2 mb-2">

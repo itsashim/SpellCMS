@@ -27,6 +27,7 @@ function PostTableRow({ data }: PostTableRowProps) {
       status: newStatus,
       };
 
+      // Updates Post By status "draft" |  "published"
     updatePost({ 
         id: post.id, 
         data: updatedStatus

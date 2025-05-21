@@ -31,8 +31,8 @@ export const updateAuthor = async ({ id, data }: { id: string; data: { name: str
 
 // Delete Authors
 export const deleteAuthors = (id:string)=>{
-const response = apiClient.delete(`/authors/${id}`)  
-return response;
+  const response = apiClient.delete(`/authors/${id}`)  
+  return response;
 }
 
 

@@ -24,7 +24,7 @@ export default function Login() {
     const onSubmit:SubmitHandler<User> = (data) => {
        const user = mockUsers.find((curUser)=> curUser.email === data.email && curUser.password === data.password);
        if(user){
-        //    Store Token in local storage
+        // Stores Token in local storage
            login(user.token);
            navigate("/");
         }else{
@@ -37,11 +37,11 @@ export default function Login() {
             <h1 className="text-4xl font-bold mb-5">Login</h1>
             <input type="email" placeholder="Email" className="input-base mb-4" {...register("email")}/>
             {errors.email && (
-            <p className="text-red-500 text-sm mb-3">{errors.email.message}</p>
+                 <p className="text-red-500 text-sm mb-3">{errors.email.message}</p>
             )}
             <input type="password" placeholder="Password" className="input-base mb-5" {...register("password")}/>
             {errors.password && (
-            <p className="text-red-500 text-sm mb-3">{errors.password.message}</p>
+                <p className="text-red-500 text-sm mb-3">{errors.password.message}</p>
             )}
             {loginError && <p className="text-red-500 text-sm mb-3">{loginError}</p>}
             <button type="submit" className="btn-primary hover:cursor-pointer">Login</button>

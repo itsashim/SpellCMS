@@ -42,7 +42,7 @@ export default function EditAuthorForm() {
   const [existingAvatar, setExistingAvatar] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Fetch existing author data
+  // Fetch author data
   const { data: author, isLoading } = useAuthorById(id!);
   const { mutate: updateAuthor } = useUpdateAuthor();
 
@@ -64,7 +64,7 @@ export default function EditAuthorForm() {
 
   const coverImage = watch("avatar");
 
-  // Reset form when author data loads
+  // Reset form 
   useEffect(() => {
     if (author) {
       setExistingAvatar(author.avatar);
