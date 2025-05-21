@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { createAuthors, getAuthors, getAuthorById, updateAuthor } from '../api/authors';
+import { createAuthors, getAuthors, getAuthorById, updateAuthor, deleteAuthors } from '../api/authors';
 import { toast } from 'sonner';
 
 
@@ -36,6 +36,18 @@ export const useUpdateAuthor = () => {
     }
   });
 };
+
+// Delete Authors
+export const useDeleteAuthor = ()=>{
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (id:string) => deleteAuthors(id),
+    onSuccess: ()=>{
+    queryClient.invalidateQueries({ queryKey: ['authors'] });
+    }
+  })
+}
+
 
 // Create Authors
 export const useAuthorMutation = ()=>{

@@ -29,6 +29,13 @@ export const updateAuthor = async ({ id, data }: { id: string; data: { name: str
   }
 };
 
+// Delete Authors
+export const deleteAuthors = (id:string)=>{
+const response = apiClient.delete(`/authors/${id}`)  
+return response;
+}
+
+
 // Create Authors
 export const createAuthors = async (data:Authors) =>{
   const response = await apiClient.post(`/authors`,data);
