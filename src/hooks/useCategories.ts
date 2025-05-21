@@ -21,6 +21,7 @@ export const useCategoryById = (id:string) => {
   });
 };
 
+// Update Category
 export const useUpdateCategory = () => {
   const queryClient = useQueryClient();
   

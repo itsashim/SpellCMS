@@ -9,6 +9,7 @@ import Authors from '../pages/author/Authors'
 import Category from '../pages/category/Category'
 import Login from '../pages/auth/Login'
 import EditCategory from '../pages/category/EditCategory'
+import EditAuthor from '../pages/author/EditAuthor'
 
 function AppRoutes() {
   return (
@@ -19,6 +20,7 @@ function AppRoutes() {
             <Route path="/create-post" element={<CreatePost/>} />
             <Route path="/authors" element={<Authors/>} />
             <Route path="/authors/create" element={<CreateAuthor/>} />
+            <Route path="/authors/edit/:id" element={<EditAuthor/>} />
             <Route path="/category" element={<Category />} />
             <Route path="/category/create" element={<CreateCategory />} />
             <Route path="/category/edit/:id" element={<EditCategory />} />

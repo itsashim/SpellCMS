@@ -1,15 +1,16 @@
 import { BsThreeDotsVertical } from "react-icons/bs"
 import type { Authors } from "../../../api/authors"
 import { useState } from "react";
+import { Link } from "react-router";
 
 interface AuthorTableProps {
     data: Authors;
 }
 
 function AuthorsTableRow({data}:AuthorTableProps) {
-    const [curId, setCurId] = useState<number | null>(null);
-    const handleAction = (id: number) => {
-    setCurId((prev) => (prev === id ? null : id));
+    const [curId, setCurId] = useState<string | null>(null);
+    const handleAction = (id: string) => {
+    setCurId((prev) => (prev == id ? null : id));
     };
   return (
             <tr className="hover:bg-gray-50 transition-colors relative">
@@ -31,7 +32,9 @@ function AuthorsTableRow({data}:AuthorTableProps) {
                     >
                     <ul className="text-sm">
                         <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                        <Link to={`/authors/edit/${curId}`}>
                         Edit
+                        </Link>
                         </li>
                         <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
                         Delete
