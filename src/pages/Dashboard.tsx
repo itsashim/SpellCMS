@@ -5,7 +5,7 @@ import CreateBtn from "../components/CreateBtn";
 
 
 interface Post {
-  id: number;
+  id: string;
   title: string;
   author: string;
   category: string;

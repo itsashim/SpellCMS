@@ -4,6 +4,9 @@ import { FiUpload } from 'react-icons/fi';
 import { useAuthors } from '../../../hooks/useAuthors';
 import { useCategories } from '../../../hooks/useCategories';
 import JoditEditor from 'jodit-react';
+import { usePostsMutation } from '../../../hooks/usePost';
+import { uploadImageToCloudinary } from '../../../helpers/uploadImageToCloudinary';
+import { useNavigate } from 'react-router';
 
 type PostFormData = {
   title: string;
@@ -20,12 +23,16 @@ export default function PostForm() {
   const {data:categories=[]} = useCategories();
   const [tagInput, setTagInput] = useState('');
   const [content, setContent]= useState("");
-  const editor = useRef(null)
+  const editor = useRef(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [uploadError, setUploadError] = useState('');
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
     watch,
     setValue,
+    reset,
     formState: { errors },
   } = useForm<PostFormData>({
     defaultValues: {
@@ -34,10 +41,64 @@ export default function PostForm() {
     },
   });
 
-  const onSubmit = (data: PostFormData) => {
-    console.log('Form data:', data);
-    // Handle form submission
-  };
+  const {mutate: createPost} = usePostsMutation()
+
+  // const onSubmit = (data: PostFormData) => {
+  //   const newPost = {
+  //     content,
+  //     ...data
+  //   }
+  //   console.log('Form data:', newPost);
+  // };
+      const maxId = authors.reduce((max, item) => {
+        const id = typeof item.id === "string" ? parseInt(item.id, 10) : item.id;
+        return Math.max(max, id ?? 0);
+      }, 0);
+
+
+   const onSubmit = async (data: PostFormData) => {    
+      setIsSubmitting(true);
+      setUploadError('');
+  
+      try {
+        // Upload the image to Cloudinary
+        const coverImageFile = data.coverImage[0];
+        const imageURL = await uploadImageToCloudinary(coverImageFile);
+        
+        // Prepare the author data
+        const newPost = {
+          id: String(maxId + 1),
+          title: data.title,
+          author: data.author,
+          category: data.category,
+          tags: data.tags,
+          status: data.status,
+          createdAt: new Date(),
+          coverImage: imageURL
+        };
+
+        console.log(newPost);
+        
+        // Use mutation with success/error handling
+        createPost(newPost, {
+          onSuccess: () => {
+            reset();
+            navigate("/")
+          },
+          onError: (error) => {
+            setUploadError('Failed to create author. Please try again.');
+            console.error("Author creation failed:", error);
+          }
+        });
+      } catch (error) {
+        setUploadError('Image upload failed. Please try again.');
+        console.error("Upload error:", error);
+      } finally {
+        setIsSubmitting(false);
+      }
+    };
+
+
 
   const coverImage = watch('coverImage');
   const tags = watch('tags');
@@ -75,10 +136,10 @@ export default function PostForm() {
         <label className="form-label">Content</label>
         <JoditEditor
             className='rounded-none'
-			ref={editor}
-			value={content}
-			onChange={newContent => setContent(newContent)}
-		/>
+        ref={editor}
+        value={content}
+        onChange={newContent => setContent(newContent)}
+      />
       </div>
 
       {/* Author Dropdown */}
