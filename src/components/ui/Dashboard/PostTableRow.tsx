@@ -2,8 +2,9 @@ import { useState, } from "react";
 import { type Post } from "../../../api/posts";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import dayjs from "dayjs";
-import { useDeletePost } from "../../../hooks/usePost";
+import { useDeletePost, useUpdatePosts } from "../../../hooks/usePost";
 import { Link } from "react-router";
+import { toast } from "sonner";
 
 interface PostTableRowProps {
   data: Post;
@@ -15,11 +16,27 @@ function PostTableRow({ data }: PostTableRowProps) {
     setCurId((prev) => (prev === id ? null : id));
   };
 
+  const {mutate:updatePost} = useUpdatePosts();
   const {mutate:deletePost} = useDeletePost()
   const handleDelete = (id:string)=>{
     deletePost(id);
   }
 
+ const handleChangeStatus = (post: Post) => {
+    const newStatus = post.status === "draft" ? "published" : "draft";
+    updatePost({ 
+        id: post.id, 
+        data: { 
+          status: newStatus,
+          title: post.title,
+          content: post.content,
+          author: post.author,
+          category: post.category,
+          tags: post.tags
+        } 
+      });
+      setCurId(null);
+  };
   return (
     <tr className="hover:bg-gray-50 transition-colors relative">
         <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">
@@ -69,7 +86,7 @@ function PostTableRow({ data }: PostTableRowProps) {
                   Edit
                 </Link>
               </li>
-              <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+              <li onClick={()=>handleChangeStatus(data)} className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
                 {data.status === "draft" ? "Published" : "Draft"}
               </li>
               <li onClick={()=> handleDelete(data.id)} className="px-4 py-2 hover:bg-gray-100 cursor-pointer">

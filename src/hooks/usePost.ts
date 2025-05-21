@@ -36,7 +36,7 @@ export const usePostsById = (id:string) => {
 export const useUpdatePosts = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: { name: string } }) => 
+    mutationFn: ({ id, data }) => 
     updatePosts({ id, data }),
     onSuccess: () => {
       // Invalidate and refetch
