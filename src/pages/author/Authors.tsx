@@ -10,7 +10,7 @@ function Authors() {
       <CreateBtn width="1600px" to="/authors/create" ariaLabel="Create new Author">
         Create Author
       </CreateBtn>
-      <div className="rounded-lg border border-gray-200 shadow-sm max-w-[1600px] mx-auto">
+      <div className="rounded-lg border border-gray-200 shadow-sm max-w-[1600px] mx-auto overflow-x-scroll">
         <table className="min-w-full divide-y divide-gray-200 bg-white text-xl">
           {/* Table Header */}
           <thead className="bg-gray-50">

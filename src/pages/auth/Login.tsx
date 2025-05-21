@@ -33,7 +33,7 @@ export default function Login() {
     }
   return (
     <section onSubmit={handleSubmit(onSubmit)} className="flex justify-center items-center h-dvh">
-        <form className="flex flex-col max-w-[500px] w-full">
+        <form className="flex flex-col max-w-[500px] w-full p-10">
             <h1 className="text-4xl font-bold mb-5">Login</h1>
             <input type="email" placeholder="Email" className="input-base mb-4" {...register("email")}/>
             {errors.email && (
