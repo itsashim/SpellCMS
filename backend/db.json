@@ -1,0 +1,153 @@
+{
+  "posts": [
+    {
+      "id": "4",
+      "title": "asdfasdf",
+      "author": "Ashim",
+      "category": "asdf",
+      "tags": [
+        "asdf]"
+      ],
+      "status": "published",
+      "createdAt": "2025-05-21T07:58:54.554Z",
+      "coverImage": "https://res.cloudinary.com/dbweny3hj/image/upload/v1747817157/ropgrh6ktgf2ln3qgdjy.jpg",
+      "content": "<p>Chau chauafsdasdfafsdfasdf</p>"
+    },
+    {
+      "id": "5",
+      "title": "How to Make a website?",
+      "author": "Ashim",
+      "category": "a",
+      "tags": [
+        "what ",
+        "what"
+      ],
+      "status": "draft",
+      "createdAt": "2025-05-21T08:00:41.338Z",
+      "coverImage": "https://res.cloudinary.com/dbweny3hj/image/upload/v1747814438/xwt9mjpwe7tbvcq5meuh.jpg",
+      "content": "<p>fasdfasdf</p>"
+    },
+    {
+      "id": "7",
+      "title": "Who are you",
+      "author": "Sonu",
+      "category": "Ashim",
+      "tags": [
+        "wow"
+      ],
+      "status": "draft",
+      "createdAt": "2025-05-21T08:44:45.257Z",
+      "coverImage": "https://res.cloudinary.com/dbweny3hj/image/upload/v1747817083/bwkheqqhuwtq7u3rbqgv.jpg",
+      "content": "<p>I am Ashim</p>"
+    },
+    {
+      "id": "8",
+      "title": "Hello",
+      "author": "Ashim",
+      "category": "a",
+      "tags": [
+        "hello"
+      ],
+      "status": "draft",
+      "createdAt": "2025-05-21T09:52:48.779Z",
+      "coverImage": "https://res.cloudinary.com/dbweny3hj/image/upload/v1747821166/zzwgmcgakqm5p3r6knz5.jpg",
+      "content": "<p>WOwo</p>"
+    },
+    {
+      "id": "9",
+      "title": "Ashim",
+      "author": "Ashim",
+      "category": "What's",
+      "tags": [
+        "asdf"
+      ],
+      "status": "draft",
+      "createdAt": "2025-05-21T19:59:25.741Z",
+      "coverImage": "https://res.cloudinary.com/dbweny3hj/image/upload/v1747857564/jdgjvw4ex0rrz8ly1blc.png",
+      "content": "<p>asdf</p>"
+    },
+    {
+      "id": "10",
+      "title": "what is going on",
+      "author": "Ashim",
+      "category": "asdf",
+      "tags": [
+        "fasdf"
+      ],
+      "status": "draft",
+      "createdAt": "2025-05-21T19:59:53.082Z",
+      "coverImage": "https://res.cloudinary.com/dbweny3hj/image/upload/v1747857592/stkbb7sbl0zohiel93lb.png",
+      "content": "<p>asdf</p>"
+    }
+  ],
+  "categories": [
+    {
+      "id": "4",
+      "name": "master"
+    },
+    {
+      "id": "5",
+      "name": "What's"
+    },
+    {
+      "id": "6",
+      "name": "what's"
+    },
+    {
+      "id": "7",
+      "name": "asdf"
+    },
+    {
+      "id": "8",
+      "name": "asdf"
+    },
+    {
+      "id": "9",
+      "name": "a"
+    },
+    {
+      "id": "10",
+      "name": "asdf"
+    },
+    {
+      "id": "11",
+      "name": "Ashim"
+    },
+    {
+      "id": "12",
+      "name": "asdf"
+    },
+    {
+      "id": "13",
+      "name": "wow"
+    },
+    {
+      "id": "14",
+      "name": "What is your name"
+    },
+    {
+      "id": "15",
+      "name": "what "
+    }
+  ],
+  "authors": [
+    {
+      "id": "1",
+      "name": "Ashim",
+      "avatar": "https://res.cloudinary.com/dbweny3hj/image/upload/v1747820315/emlgce1fkqhjju6ucwua.jpg",
+      "bio": "What is your name"
+    },
+    {
+      "id": "2",
+      "name": "Sonu",
+      "avatar": "https://res.cloudinary.com/dbweny3hj/image/upload/v1747811601/wt9a1xh931weqiixvs3r.jpg",
+      "bio": "my name is sonu"
+    },
+    {
+      "id": "3",
+      "name": "what ",
+      "avatar": "https://res.cloudinary.com/dbweny3hj/image/upload/v1747862768/jjgft2aobzdbs8qcvjhb.png",
+      "bio": "fasdfasfasdfasdf"
+    }
+  ]
+}
