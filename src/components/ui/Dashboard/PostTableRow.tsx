@@ -4,7 +4,6 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import dayjs from "dayjs";
 import { useDeletePost, useUpdatePosts } from "../../../hooks/usePost";
 import { Link } from "react-router";
-import { toast } from "sonner";
 
 interface PostTableRowProps {
   data: Post;
@@ -22,18 +21,15 @@ function PostTableRow({ data }: PostTableRowProps) {
     deletePost(id);
   }
 
- const handleChangeStatus = (post: Post) => {
-    const newStatus = post.status === "draft" ? "published" : "draft";
+  const handleChangeStatus = (post:Post) => {
+   const newStatus = post.status === "draft" ? "published" : "draft";
+    const updatedStatus = {
+      status: newStatus,
+      };
+
     updatePost({ 
         id: post.id, 
-        data: { 
-          status: newStatus,
-          title: post.title,
-          content: post.content,
-          author: post.author,
-          category: post.category,
-          tags: post.tags
-        } 
+        data: updatedStatus
       });
       setCurId(null);
   };

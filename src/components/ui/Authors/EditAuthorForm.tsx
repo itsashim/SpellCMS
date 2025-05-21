@@ -9,9 +9,8 @@ import Loading from "../../Loading";
 import { useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
 
-// Factory function for schema creation
-type CreateSchemaFn = (existingAvatar: string) => z.ZodType<any>;
-const createAuthorSchema: CreateSchemaFn = (existingAvatar) =>
+// Create schema dynamically based on existing avatar
+const createAuthorSchema = (existingAvatar: string) =>
   z.object({
     name: z.string().min(1, "Name is required"),
     bio: z
@@ -20,7 +19,7 @@ const createAuthorSchema: CreateSchemaFn = (existingAvatar) =>
       .max(40, "Bio should be less than 40 characters"),
     avatar: z
       .any()
-      .refine((files) => (files?.[0] || existingAvatar), "Avatar is required")
+      .refine((files) => files?.[0] || existingAvatar, "Avatar is required")
       .refine(
         (files) => !files?.[0] || files[0].size <= 5_000_000,
         "Max image size is 5MB"
@@ -61,11 +60,6 @@ export default function EditAuthorForm() {
     formState: { errors },
   } = useForm<AuthorFormData>({
     resolver: zodResolver(schema),
-    defaultValues: {
-      name: "",
-      bio: "",
-      avatar: undefined,
-    },
   });
 
   const coverImage = watch("avatar");
@@ -81,12 +75,8 @@ export default function EditAuthorForm() {
   const onSubmit = async (data: AuthorFormData) => {
     setIsSubmitting(true);
     try {
-      console.log("Submitted Data:", data);
-
       let imageURL = existingAvatar;
-      // Safely check for new file
-      if (data.avatar && data.avatar.length > 0 && data.avatar[0]) {
-        console.log("Uploading file:", data.avatar[0]);
+      if (data.avatar && data.avatar.length > 0) {
         imageURL = await uploadImageToCloudinary(data.avatar[0]);
       }
 
@@ -109,9 +99,9 @@ export default function EditAuthorForm() {
           },
         }
       );
-    } catch (error: any) {
+    } catch (error) {
       console.error("Upload error:", error);
-      toast.error(`Image upload failed: ${error.message || "Unknown error"}`);
+      toast.error(`Image upload failed: ${error || "Unknown error"}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -121,10 +111,7 @@ export default function EditAuthorForm() {
   if (isSubmitting) return <Loading>Updating Author...</Loading>;
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="max-w-[800px] mx-auto p-5 rounded-sm shadow-2xs mt-10"
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className="max-w-[800px] mx-auto p-5 rounded-sm shadow-2xs mt-10">
       <div className="mb-4">
         <label htmlFor="name" className="block text-lg font-semibold mb-2">
           Author Name
@@ -135,11 +122,7 @@ export default function EditAuthorForm() {
           className="border-1 px-3 py-2 border-bd-gray w-full text-xl"
           {...register("name")}
         />
-        {errors.name && (
-          <p className="text-red-500 text-sm mt-1">
-            {errors.name.message}
-          </p>
-        )}
+        {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message as string}</p>}
       </div>
 
       <div className="mb-6">
@@ -149,33 +132,20 @@ export default function EditAuthorForm() {
             <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-primary transition">
               <FiUpload className="mx-auto text-2xl mb-2 text-gray-400" />
               <p className="text-gray-500">Click to upload or drag and drop</p>
-              <input
-                type="file"
-                {...register("avatar")}
-                className="hidden"
-                accept="image/jpeg, image/png, image/webp"
-              />
+              <input type="file" {...register("avatar")} className="hidden" accept="image/*" />
             </div>
           </label>
           {(coverImage?.[0] || existingAvatar) && (
             <div className="w-32 h-32 rounded-lg overflow-hidden border">
               <img
-                src={
-                  coverImage?.[0]
-                    ? URL.createObjectURL(coverImage[0])
-                    : existingAvatar
-                }
+                src={coverImage?.[0] ? URL.createObjectURL(coverImage[0]) : existingAvatar}
                 alt="Author preview"
                 className="w-full h-full object-cover"
               />
             </div>
           )}
         </div>
-        {errors.avatar && (
-          <p className="text-red-500 text-sm mt-1">
-            {errors.avatar.message as string}
-          </p>
-        )}
+        {errors.avatar && <p className="text-red-500 text-sm mt-1">{errors.avatar.message as string}</p>}
       </div>
 
       <div className="mb-4">
@@ -185,22 +155,12 @@ export default function EditAuthorForm() {
           className="border-1 px-3 py-2 border-bd-gray w-full text-xl"
           {...register("bio")}
         />
-        {errors.bio && (
-          <p className="text-red-500 text-sm mt-1">
-            {errors.bio.message}
-          </p>
-        )}
+        {errors.bio && <p className="text-red-500 text-sm mt-1">{errors.bio.message}</p>}
       </div>
 
-      <div className="flex gap-4">
-        <button
-          type="submit"
-          className="btn-primary flex-1"
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? "Updating..." : "Update Author"}
-        </button>
-      </div>
+      <button type="submit" className="btn-primary w-full" disabled={isSubmitting}>
+        {isSubmitting ? "Updating..." : "Update Author"}
+      </button>
     </form>
   );
 }

@@ -13,7 +13,7 @@ export const getCategories = async ():Promise<Category[]> => {
 };
 
 // Get Categories By ID
-export const getCategoryById = async (id:string):Promise<Category[]> => {
+export const getCategoryById = async (id:string) => {
   const response = await apiClient.get(`/categories/${id}`);
   return response.data;
 };

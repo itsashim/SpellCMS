@@ -2,6 +2,19 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createAuthors, getAuthors, getAuthorById, updateAuthor, deleteAuthors } from '../api/authors';
 import { toast } from 'sonner';
 
+// Define Author interface
+export interface Author {
+  id: string;
+  name: string;
+  avatar: string;
+  bio: string;
+}
+
+// Variables for update mutation
+interface UpdateAuthorVariables {
+  id: string;
+  data: Omit<Author, 'id'>;
+}
 
 // Get Authors
 export const useAuthors = () => {
@@ -24,18 +37,19 @@ export const useAuthorById = (id:string) => {
 // Update Authors
 export const useUpdateAuthor = () => {
   const queryClient = useQueryClient();
-  
-  return useMutation({
+
+  return useMutation<Author, Error, UpdateAuthorVariables>({
     mutationFn: ({ id, data }) => updateAuthor({ id, data }),
     onSuccess: () => {
-      // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ['authors'] });
+      queryClient.invalidateQueries({queryKey:['authors']});
+      toast.success('Author updated successfully');
     },
     onError: (error) => {
-      toast.error(error.message || "Failed to update Authors");
-    }
+      toast.error(error.message || 'Failed to update author');
+    },
   });
 };
+
 
 // Delete Authors
 export const useDeleteAuthor = ()=>{

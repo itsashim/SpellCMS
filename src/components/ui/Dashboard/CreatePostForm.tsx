@@ -67,8 +67,8 @@ export default function PostForm() {
           category: data.category,
           tags: data.tags,
           status: data.status,
-          createdAt: new Date(),
-          coverImage: imageURL,
+          createdAt: new Date().toISOString(),  // ← ISO string
+          coverImage: imageURL,                 // ← string
           content: content
         };
      

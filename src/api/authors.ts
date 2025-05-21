@@ -13,7 +13,7 @@ export const getAuthors = async ():Promise<Authors[]> => {
   return response.data;
 };
 // Get Authors By ID
-export const getAuthorById = async (id:string):Promise<Authors[]> => {
+export const getAuthorById = async (id:string)=> {
   const response = await apiClient.get(`/authors/${id}`);
   return response.data;
 };

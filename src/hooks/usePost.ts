@@ -2,7 +2,22 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createPosts, deletePosts, getPosts, getPostsById, updatePosts } from '../api/posts';
 import { toast } from 'sonner';
 
-
+export interface Post {
+  id: string;
+  title: string;
+  author: string;
+  category: string;
+  tags: string[];
+  status: 'draft' | 'published';
+  createdAt: string;
+  content: string;
+  coverImage?: string;
+}
+// Variables for update mutation
+interface UpdatePostVariables {
+  id: string;
+  data: Post; 
+}
 // Get Posts
 export const usePosts = () => {
   return useQuery({
@@ -35,9 +50,9 @@ export const usePostsById = (id:string) => {
 // Update Posts
 export const useUpdatePosts = () => {
   const queryClient = useQueryClient();
+
   return useMutation({
-    mutationFn: ({ id, data }) => 
-    updatePosts({ id, data }),
+    mutationFn: ({ id, data }:UpdatePostVariables) =>  updatePosts({  id, data}),
     onSuccess: () => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ['posts'] });

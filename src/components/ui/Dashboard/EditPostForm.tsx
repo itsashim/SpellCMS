@@ -11,20 +11,23 @@ import Loading from '../../Loading';
 import { toast } from 'sonner';
 
 type PostFormData = {
+  id: string,
   title: string;
   body: string;
   author: string;
   category: string;
   tags: string[];
+  createdAt: string,
   status: 'draft' | 'published';
   coverImage: FileList | string;
 };
 
 export default function EditPostForm() {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams();
+  const curId = String(id);
   const { data: authors = [] } = useAuthors();
   const { data: categories = [] } = useCategories();
-  const { data: post, isLoading } = usePostsById(id);
+  const { data: post} = usePostsById(curId);
   const [tagInput, setTagInput] = useState('');
   const [content, setContent] = useState("");
   const [existingImage, setExistingImage] = useState("");
@@ -32,7 +35,6 @@ export default function EditPostForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
-console.log(id,post)
   const {
     register,
     handleSubmit,
@@ -46,8 +48,6 @@ console.log(id,post)
       tags: [],
     },
   });
-
-  console.log(post,categories,authors,id)
   const { mutate: updatePost } = useUpdatePosts();
 
   // Set form values when post data loads
@@ -80,15 +80,17 @@ console.log(id,post)
       
       // Prepare the updated post data
       const updatedPost = {
+        id: data.id,
         title: data.title,
         content: content,
         author: data.author,
         category: data.category,
         tags: data.tags,
+        createdAt: data.createdAt,
         status: data.status,
         coverImage: imageURL
       };
-     
+
       // Use mutation with success/error handling
       updatePost(
         { id: id!, data: updatedPost },

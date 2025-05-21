@@ -14,7 +14,7 @@ export interface Post {
 
 
 // Get Posts
-export const getPosts = async ():Promise<Post[]> => {
+export const getPosts = async () => {
   const response = await apiClient.get('/posts');
   return response.data;
 };
@@ -26,13 +26,13 @@ export const createPosts = async (data: Post) => {
 };
 
 // Get Posts By ID
-export const getPostsById = async (id:string):Promise<Post[]> => {
+export const getPostsById = async (id:string) => {
   const response = await apiClient.get(`/posts/${id}`);
   return response.data;
 };
 
 // Update Posts
-export const updatePosts = async ({ id, data }: { id: string; data: { name: string } }) => {
+export const updatePosts = async ({ id, data }: { id: string; data: Post }) => {
   try {
     const response = await apiClient.patch<Post>(`/posts/${id}`, data);
     return response.data;

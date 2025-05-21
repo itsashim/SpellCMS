@@ -18,7 +18,6 @@ interface Post {
 
 function Dashboard() {
   const {data:posts = []} = usePosts();
-  console.log(posts);
   return (
     <DashboardLayout>
       <CreateBtn width="1600px" to="/create-post" ariaLabel="Create new post">
