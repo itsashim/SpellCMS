@@ -4,9 +4,10 @@ import { FiUpload } from 'react-icons/fi';
 import { useAuthors } from '../../../hooks/useAuthors';
 import { useCategories } from '../../../hooks/useCategories';
 import JoditEditor from 'jodit-react';
-import { usePostsMutation } from '../../../hooks/usePost';
+import { usePosts, usePostsMutation } from '../../../hooks/usePost';
 import { uploadImageToCloudinary } from '../../../helpers/uploadImageToCloudinary';
 import { useNavigate } from 'react-router';
+import Loading from '../../Loading';
 
 type PostFormData = {
   title: string;
@@ -21,11 +22,12 @@ type PostFormData = {
 export default function PostForm() {
   const {data:authors=[]} = useAuthors();
   const {data:categories=[]} = useCategories();
+  const {data:posts=[]} = usePosts()
   const [tagInput, setTagInput] = useState('');
   const [content, setContent]= useState("");
   const editor = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [uploadError, setUploadError] = useState('');
+  // const [uploadError, setUploadError] = useState('');
   const navigate = useNavigate()
   const {
     register,
@@ -50,7 +52,7 @@ export default function PostForm() {
   //   }
   //   console.log('Form data:', newPost);
   // };
-      const maxId = authors.reduce((max, item) => {
+      const maxId = posts.reduce((max, item) => {
         const id = typeof item.id === "string" ? parseInt(item.id, 10) : item.id;
         return Math.max(max, id ?? 0);
       }, 0);
@@ -58,7 +60,6 @@ export default function PostForm() {
 
    const onSubmit = async (data: PostFormData) => {    
       setIsSubmitting(true);
-      setUploadError('');
   
       try {
         // Upload the image to Cloudinary
@@ -117,6 +118,8 @@ export default function PostForm() {
       tags.filter((tag) => tag !== tagToRemove)
     );
   };
+
+  if(isSubmitting) return <Loading>Creating Post</Loading>
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl mx-auto p-6 bg-white rounded-lg mt-10">

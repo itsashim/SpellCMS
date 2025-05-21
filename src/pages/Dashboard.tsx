@@ -29,6 +29,7 @@ function Dashboard() {
           {/* Table Header */}
           <thead className="bg-gray-50">
             <tr>
+              <th className="table-head">Id</th>
               <th className="table-head">Title</th>
               <th className="table-head">Author</th>
               <th className="table-head">Category</th>

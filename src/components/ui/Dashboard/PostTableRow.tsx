@@ -2,21 +2,30 @@ import { useState, } from "react";
 import { type Post } from "../../../api/posts";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import dayjs from "dayjs";
+import { useDeletePost } from "../../../hooks/usePost";
 
 interface PostTableRowProps {
   data: Post;
 }
 
 function PostTableRow({ data }: PostTableRowProps) {
-  const [curId, setCurId] = useState<number | null>(null);
-  const handleAction = (id: number) => {
+  const [curId, setCurId] = useState<string | null>(null);
+  const handleAction = (id: string) => {
     setCurId((prev) => (prev === id ? null : id));
   };
 
+  const {mutate:deletePost} = useDeletePost()
+  const handleDelete = (id:string)=>{
+    deletePost(id);
+  }
+
   return (
     <tr className="hover:bg-gray-50 transition-colors relative">
+        <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">
+        {data.id}
+      </td>
       <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">
-        {`${data.title.substring(0, 20)}...`}
+        {data.title.length < 40 ? data.title : ` ${data.title.substring(0, 20)}...`}
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-gray-500">
         {data.author}
@@ -60,7 +69,7 @@ function PostTableRow({ data }: PostTableRowProps) {
               <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
                 {data.status === "draft" ? "Published" : "Draft"}
               </li>
-              <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+              <li onClick={()=> handleDelete(data.id)} className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
                 Delete
               </li>
             </ul>

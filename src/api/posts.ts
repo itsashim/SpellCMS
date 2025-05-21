@@ -24,3 +24,10 @@ export const createPosts = async (data: Post) => {
   const response = await apiClient.post("/posts", data);
   return response.data;
 };
+
+// Delete Posts
+export const deletePosts = (id:string)=>{
+const response = apiClient.delete(`/posts/${id}`)  
+return response;
+}
+
