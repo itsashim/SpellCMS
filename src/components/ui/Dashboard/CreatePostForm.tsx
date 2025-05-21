@@ -27,7 +27,7 @@ export default function PostForm() {
   const [content, setContent]= useState("");
   const editor = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  // const [uploadError, setUploadError] = useState('');
+  const [uploadError, setUploadError] = useState('');
   const navigate = useNavigate()
   const {
     register,
@@ -265,6 +265,10 @@ export default function PostForm() {
             </div>
           )}
         </div>
+        {uploadError && (
+        <p className="text-red-500 text-sm mb-4">{uploadError}</p>
+        )}
+        
       </div>
 
       <button

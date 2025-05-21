@@ -120,7 +120,7 @@ if (isSubmitting) {
         </div>
         {uploadError && (
         <p className="text-red-500 text-sm mb-4">{uploadError}</p>
-      )}
+          )}
       </div>
         <div className="mb-4">
             <label htmlFor="" className="block text-lg font-semibold mb-2">Bio</label>
