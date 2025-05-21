@@ -23,7 +23,7 @@ function CreateCategoryForm() {
     resolver: zodResolver(categorySchema),
   });
 
-  // Increase One in Id
+  // Categories max length
   const maxId = categories.reduce((max, item) => {
     const id = typeof item.id === "string" ? parseInt(item.id, 10) : item.id;
     return Math.max(max, id ?? 0);

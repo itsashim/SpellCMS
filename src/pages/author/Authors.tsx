@@ -26,7 +26,7 @@ function Authors() {
           <tbody className="divide-y divide-gray-200 text-lg">
             
             {authors.map((author)=>{
-                return <AuthorsTableRow data={author}/>
+                return <AuthorsTableRow key={author.id} data={author}/>
             })}
 
           </tbody>
