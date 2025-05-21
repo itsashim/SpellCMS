@@ -25,6 +25,23 @@ export const createPosts = async (data: Post) => {
   return response.data;
 };
 
+// Get Posts By ID
+export const getPostsById = async (id:string):Promise<Post[]> => {
+  const response = await apiClient.get(`/posts/${id}`);
+  return response.data;
+};
+
+// Update Posts
+export const updatePosts = async ({ id, data }: { id: string; data: { name: string } }) => {
+  try {
+    const response = await apiClient.patch<Post>(`/posts/${id}`, data);
+    return response.data;
+  } catch (error) {
+    console.log(error)
+    throw new Error(`Failed to update Posts with ID ${id}`);
+  }
+};
+
 // Delete Posts
 export const deletePosts = (id:string)=>{
 const response = apiClient.delete(`/posts/${id}`)  

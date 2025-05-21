@@ -1,13 +1,14 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { FiUpload } from 'react-icons/fi';
 import { useAuthors } from '../../../hooks/useAuthors';
 import { useCategories } from '../../../hooks/useCategories';
 import JoditEditor from 'jodit-react';
-import { usePosts, usePostsMutation } from '../../../hooks/usePost';
+import {  usePostsById, useUpdatePosts } from '../../../hooks/usePost';
 import { uploadImageToCloudinary } from '../../../helpers/uploadImageToCloudinary';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import Loading from '../../Loading';
+import { toast } from 'sonner';
 
 type PostFormData = {
   title: string;
@@ -16,19 +17,22 @@ type PostFormData = {
   category: string;
   tags: string[];
   status: 'draft' | 'published';
-  coverImage: FileList;
+  coverImage: FileList | string;
 };
 
-export default function PostForm() {
-  const {data:authors=[]} = useAuthors();
-  const {data:categories=[]} = useCategories();
-  const {data:posts=[]} = usePosts()
+export default function EditPostForm() {
+  const { id } = useParams<{ id: string }>();
+  const { data: authors = [] } = useAuthors();
+  const { data: categories = [] } = useCategories();
+  const { data: post, isLoading } = usePostsById(id);
   const [tagInput, setTagInput] = useState('');
-  const [content, setContent]= useState("");
+  const [content, setContent] = useState("");
+  const [existingImage, setExistingImage] = useState("");
   const editor = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [uploadError, setUploadError] = useState('');
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+console.log(id,post)
   const {
     register,
     handleSubmit,
@@ -43,57 +47,68 @@ export default function PostForm() {
     },
   });
 
-  const {mutate: createPost} = usePostsMutation()
+  console.log(post,categories,authors,id)
+  const { mutate: updatePost } = useUpdatePosts();
 
-    const maxId = posts.reduce((max, item) => {
-      const id = typeof item.id === "string" ? parseInt(item.id, 10) : item.id;
-      return Math.max(max, id ?? 0);
-    }, 0);
+  // Set form values when post data loads
+  useEffect(() => {
+    if (post) {
+      setContent(post.content || "");
+      setExistingImage(post.coverImage || "");
+      reset({
+        title: post.title,
+        author: post.author,
+        category: post.category,
+        tags: post.tags || [],
+        status: post.status,
+        coverImage: post.coverImage
+      });
+    }
+  }, [post, reset]);
 
+  const onSubmit = async (data: PostFormData) => {    
+    setIsSubmitting(true);
 
-   const onSubmit = async (data: PostFormData) => {    
-      setIsSubmitting(true);
-  
-      try {
-        // Upload the image to Cloudinary
+    try {
+      let imageURL = existingImage;
+      
+      // Only upload new image if one was selected
+      if (data.coverImage instanceof FileList && data.coverImage[0]) {
         const coverImageFile = data.coverImage[0];
-        const imageURL = await uploadImageToCloudinary(coverImageFile);
-        
-        // Prepare the author data
-        const newPost = {
-          id: String(maxId + 1),
-          title: data.title,
-          author: data.author,
-          category: data.category,
-          tags: data.tags,
-          status: data.status,
-          createdAt: new Date(),
-          coverImage: imageURL,
-          content: content
-        };
-     
-        // Use mutation with success/error handling
-        createPost(newPost, {
-          onSuccess: () => {
-            reset();
-            navigate("/")
-          },
-          onError: (error) => {
-            setUploadError('Failed to create author. Please try again.');
-            console.error("Author creation failed:", error);
-          }
-        });
-      } catch (error) {
-        setUploadError('Image upload failed. Please try again.');
-        console.error("Upload error:", error);
-      } finally {
-        setIsSubmitting(false);
+        imageURL = await uploadImageToCloudinary(coverImageFile);
       }
-    };
+      
+      // Prepare the updated post data
+      const updatedPost = {
+        title: data.title,
+        content: content,
+        author: data.author,
+        category: data.category,
+        tags: data.tags,
+        status: data.status,
+        coverImage: imageURL
+      };
+     
+      // Use mutation with success/error handling
+      updatePost(
+        { id: id!, data: updatedPost },
+        {
+          onSuccess: () => {
+            toast.success("Post updated successfully");
+            navigate("/");
+          }
+        }
+      );
+    } catch (error) {
+      toast.error("Image upload failed. Please try again.");
+      console.error("Upload error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const coverImage = watch('coverImage');
   const tags = watch('tags');
-
 
   const addTag = () => {
     if (tagInput && !tags.includes(tagInput)) {
@@ -109,7 +124,9 @@ export default function PostForm() {
     );
   };
 
-  if(isSubmitting) return <Loading>Creating Post</Loading>
+  if (isSubmitting) {
+    return <Loading>Updating Post...</Loading>;
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl mx-auto p-6 bg-white rounded-lg mt-10">
@@ -124,15 +141,15 @@ export default function PostForm() {
         {errors.title && <p className="text-red-500 mt-1">{errors.title.message}</p>}
       </div>
 
-      {/* Body - Markdown/WYSIWYG */}
+      {/* Content Editor */}
       <div className="mb-6">
         <label className="form-label">Content</label>
         <JoditEditor
-            className='rounded-none'
-        ref={editor}
-        value={content}
-        onChange={newContent => setContent(newContent)}
-      />
+          ref={editor}
+          value={content}
+          onChange={newContent => setContent(newContent)}
+          className='rounded-none'
+        />
       </div>
 
       {/* Author Dropdown */}
@@ -245,7 +262,7 @@ export default function PostForm() {
               />
             </div>
           </label>
-          {coverImage?.[0] && (
+          {(coverImage instanceof FileList && coverImage[0]) ? (
             <div className="w-32 h-32 rounded-lg overflow-hidden border">
               <img
                 src={URL.createObjectURL(coverImage[0])}
@@ -253,20 +270,27 @@ export default function PostForm() {
                 className="w-full h-full object-cover"
               />
             </div>
-          )}
+          ) : existingImage ? (
+            <div className="w-32 h-32 rounded-lg overflow-hidden border">
+              <img
+                src={existingImage}
+                alt="Current cover"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ) : null}
         </div>
-        {uploadError && (
-        <p className="text-red-500 text-sm mb-4">{uploadError}</p>
-        )}
-        
       </div>
 
-      <button
-        type="submit"
-        className="w-full btn-primary"
-      >
-        Create Post
-      </button>
+      <div className="flex gap-4">
+        <button
+          type="submit"
+          className="btn-primary flex-1"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? 'Updating...' : 'Update Post'}
+        </button>
+      </div>
     </form>
   );
 }

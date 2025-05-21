@@ -3,6 +3,7 @@ import { type Post } from "../../../api/posts";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import dayjs from "dayjs";
 import { useDeletePost } from "../../../hooks/usePost";
+import { Link } from "react-router";
 
 interface PostTableRowProps {
   data: Post;
@@ -64,7 +65,9 @@ function PostTableRow({ data }: PostTableRowProps) {
           >
             <ul className="text-sm">
               <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                Edit
+                <Link to={`/posts/${data.id}`}>
+                  Edit
+                </Link>
               </li>
               <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
                 {data.status === "draft" ? "Published" : "Draft"}

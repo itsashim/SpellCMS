@@ -10,6 +10,7 @@ import Category from '../pages/category/Category'
 import Login from '../pages/auth/Login'
 import EditCategory from '../pages/category/EditCategory'
 import EditAuthor from '../pages/author/EditAuthor'
+import EditPostForm from '../components/ui/Dashboard/EditPostForm'
 
 function AppRoutes() {
   return (
@@ -18,6 +19,7 @@ function AppRoutes() {
           <Route element={<ProtectedRoute/>}>
             <Route path="/" element={<Dashboard />} />
             <Route path="/create-post" element={<CreatePost/>} />
+            <Route path="/posts/:id" element={<EditPostForm/>} />
             <Route path="/authors" element={<Authors/>} />
             <Route path="/authors/create" element={<CreateAuthor/>} />
             <Route path="/authors/edit/:id" element={<EditAuthor/>} />
