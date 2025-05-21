@@ -1,153 +1,80 @@
 {
   "posts": [
     {
-      "id": "4",
-      "title": "asdfasdf",
-      "author": "Ashim",
-      "category": "asdf",
+      "id": "1",
+      "title": "How React works under the hood",
+      "author": "Mehul Mohan",
+      "category": "Technology",
       "tags": [
-        "asdf]"
+        "web",
+        "react"
       ],
       "status": "published",
-      "createdAt": "2025-05-21T07:58:54.554Z",
-      "coverImage": "https://res.cloudinary.com/dbweny3hj/image/upload/v1747817157/ropgrh6ktgf2ln3qgdjy.jpg",
-      "content": "<p>Chau chauafsdasdfafsdfasdf</p>"
+      "createdAt": "2025-05-21T22:38:30.458Z",
+      "coverImage": "https://res.cloudinary.com/dbweny3hj/image/upload/v1747867109/oxrpvpa8lea9izzjnzpl.jpg",
+      "content": "<p style=\"box-sizing: inherit; margin: 0px 0px 1.5em; padding: 0px; border: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-variant-alternates: inherit; font-variant-position: inherit; font-variant-emoji: inherit; font-weight: 400; font-stretch: inherit; line-height: 1.5em; font-family: Lato, sans-serif; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; font-size: 1.25em; vertical-align: baseline; min-width: 100%; color: rgb(10, 10, 35); letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">By Mehul Mohan</p><p style=\"box-sizing: inherit; margin: 0px 0px 1.5em; padding: 0px; border: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-variant-alternates: inherit; font-variant-position: inherit; font-variant-emoji: inherit; font-weight: 400; font-stretch: inherit; line-height: inherit; font-family: Lato, sans-serif; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; font-size: 22px; vertical-align: baseline; min-width: 100%; color: rgb(10, 10, 35); letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">React is a very popular JavaScript library. With over 5.5 million weekly downloads, React is enjoying great popularity. But not a lot of React developers know how React works under the hood.</p><p style=\"box-sizing: inherit; margin: 0px 0px 1.5em; padding: 0px; border: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-variant-alternates: inherit; font-variant-position: inherit; font-variant-emoji: inherit; font-weight: 400; font-stretch: inherit; line-height: inherit; font-family: Lato, sans-serif; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; font-size: 22px; vertical-align: baseline; min-width: 100%; color: rgb(10, 10, 35); letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">In this post, I'll try to uncover some interesting things about React which you, as a React developer, might find fascinating. Let's start at the beginning.</p><p style=\"box-sizing: inherit; margin: 0px 0px 1.5em; padding: 0px; border: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-variant-alternates: inherit; font-variant-position: inherit; font-variant-emoji: inherit; font-weight: 400; font-stretch: inherit; line-height: inherit; font-family: Lato, sans-serif; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; font-size: 22px; vertical-align: baseline; min-width: 100%; color: rgb(10, 10, 35); letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">But before we start, if you're a React developer, I have some exciting news for you! Once you complete this article, you'll get to develop something cool with React and win prizes on the way :)</p><h2 id=\"heading-what-does-react-do\" style=\"box-sizing: inherit; margin: 0.5em 0px 0.2em; padding: 0px; border: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-variant-alternates: inherit; font-variant-position: inherit; font-variant-emoji: inherit; font-weight: 700; font-stretch: inherit; line-height: 1.15; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Oxygen, Ubuntu, Cantarell, &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, sans-serif; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; font-size: 3.6rem; vertical-align: baseline; text-rendering: optimizelegibility; min-width: 100%; color: rgb(27, 27, 50); letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">What does React do?</h2><p style=\"box-sizing: inherit; margin: 0px 0px 1.5em; padding: 0px; border: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-variant-alternates: inherit; font-variant-position: inherit; font-variant-emoji: inherit; font-weight: 400; font-stretch: inherit; line-height: inherit; font-family: Lato, sans-serif; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; font-size: 22px; vertical-align: baseline; min-width: 100%; color: rgb(10, 10, 35); letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">At its very core, React basically maintains a tree for you. This tree is able to do efficient diff computations on the nodes.</p><p style=\"box-sizing: inherit; margin: 0px 0px 1.5em; padding: 0px; border: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-variant-alternates: inherit; font-variant-position: inherit; font-variant-emoji: inherit; font-weight: 400; font-stretch: inherit; line-height: inherit; font-family: Lato, sans-serif; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; font-size: 22px; vertical-align: baseline; min-width: 100%; color: rgb(10, 10, 35); letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">Think of your HTML code as a tree. In fact, that is exactly how the browser treats your DOM (your rendered HTML on the browser). React allows you to effectively re-construct your DOM in JavaScript and push only those changes to the DOM which have actually occurred.</p>"
     },
     {
-      "id": "5",
-      "title": "How to Make a website?",
-      "author": "Ashim",
-      "category": "a",
+      "id": "2",
+      "title": "How to Read and Talk Like a News Anchor",
+      "author": "Rishi Dhamala",
+      "category": "News",
       "tags": [
-        "what ",
-        "what"
+        "news",
+        "reporting"
       ],
-      "status": "draft",
-      "createdAt": "2025-05-21T08:00:41.338Z",
-      "coverImage": "https://res.cloudinary.com/dbweny3hj/image/upload/v1747814438/xwt9mjpwe7tbvcq5meuh.jpg",
-      "content": "<p>fasdfasdf</p>"
+      "status": "published",
+      "createdAt": "2025-05-21T22:40:38.715Z",
+      "coverImage": "https://res.cloudinary.com/dbweny3hj/image/upload/v1747867238/r94ynipaqxwjjivzyt8a.jpg",
+      "content": "<p><span style=\"color: rgb(84, 84, 84); font-family: Helvetica, &quot;Nimbus Sans L&quot;, Arial, &quot;Liberation Sans&quot;, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;\">TV news reporters seem to project confidence and authority when they speak. As is the case with many skills, practice makes perfect when it comes to reporting. The first step in learning to report the news is to watch the professionals. Take note and write down any characteristics you want to imitate. Then, print out some news stories and practice reading them on your own. After you've gained a little bit of confidence in your reading, start paying attention to your body language, facial expressions, and gestures.</span></p>"
     },
     {
-      "id": "7",
-      "title": "Who are you",
-      "author": "Sonu",
-      "category": "Ashim",
+      "id": "3",
+      "title": "12 Top Fitness Blogs You Need to Follow",
+      "author": "Andrew Tate",
+      "category": "Health",
       "tags": [
-        "wow"
+        "health",
+        "gym"
       ],
       "status": "draft",
-      "createdAt": "2025-05-21T08:44:45.257Z",
-      "coverImage": "https://res.cloudinary.com/dbweny3hj/image/upload/v1747817083/bwkheqqhuwtq7u3rbqgv.jpg",
-      "content": "<p>I am Ashim</p>"
-    },
-    {
-      "id": "8",
-      "title": "Hello",
-      "author": "Ashim",
-      "category": "a",
-      "tags": [
-        "hello"
-      ],
-      "status": "draft",
-      "createdAt": "2025-05-21T09:52:48.779Z",
-      "coverImage": "https://res.cloudinary.com/dbweny3hj/image/upload/v1747821166/zzwgmcgakqm5p3r6knz5.jpg",
-      "content": "<p>WOwo</p>"
-    },
-    {
-      "id": "9",
-      "title": "Ashim",
-      "author": "Ashim",
-      "category": "What's",
-      "tags": [
-        "asdf"
-      ],
-      "status": "draft",
-      "createdAt": "2025-05-21T19:59:25.741Z",
-      "coverImage": "https://res.cloudinary.com/dbweny3hj/image/upload/v1747857564/jdgjvw4ex0rrz8ly1blc.png",
-      "content": "<p>asdf</p>"
-    },
-    {
-      "id": "10",
-      "title": "what is going on",
-      "author": "Ashim",
-      "category": "asdf",
-      "tags": [
-        "fasdf"
-      ],
-      "status": "draft",
-      "createdAt": "2025-05-21T19:59:53.082Z",
-      "coverImage": "https://res.cloudinary.com/dbweny3hj/image/upload/v1747857592/stkbb7sbl0zohiel93lb.png",
-      "content": "<p>asdf</p>"
+      "createdAt": "2025-05-21T22:42:28.984Z",
+      "coverImage": "https://res.cloudinary.com/dbweny3hj/image/upload/v1747867348/q2nsud0ph845mcvdm1qx.jpg",
+      "content": "<p style=\"box-sizing: inherit; margin: 0px 0px 32px; line-height: 1.6; color: rgb(1, 1, 1); font-family: Poppins, sans-serif; font-size: 20px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">Today, more than ever, there is a renewed focus and awareness on health and fitness. People are truly beginning to understand how exercise not only helps your body, but your mind too. As a result, people are looking for more information on their journey to good health. But how do you find the right place to get quality information on health and fitness? There are a lot of blogs out there, and not all of them provide the best or most reliable information.</p><p style=\"box-sizing: inherit; margin: 0px 0px 32px; line-height: 1.6; color: rgb(1, 1, 1); font-family: Poppins, sans-serif; font-size: 20px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\">Here, we’ve compiled a list of the best fitness blogs for you to learn and grow from. Along with classic blogs on strength training and health, we’ve also included a number of fitness blogs focused on wellness and more holistic aspects of health.</p>"
     }
   ],
   "categories": [
     {
-      "id": "4",
-      "name": "master"
+      "id": "1",
+      "name": "Technology"
     },
     {
-      "id": "5",
-      "name": "What's"
+      "id": "2",
+      "name": "Health"
     },
     {
-      "id": "6",
-      "name": "what's"
-    },
-    {
-      "id": "7",
-      "name": "asdf"
-    },
-    {
-      "id": "8",
-      "name": "asdf"
-    },
-    {
-      "id": "9",
-      "name": "a"
-    },
-    {
-      "id": "10",
-      "name": "asdf"
-    },
-    {
-      "id": "11",
-      "name": "Ashim"
-    },
-    {
-      "id": "12",
-      "name": "asdf"
-    },
-    {
-      "id": "13",
-      "name": "wow"
-    },
-    {
-      "id": "14",
-      "name": "What is your name"
-    },
-    {
-      "id": "15",
-      "name": "what "
+      "id": "3",
+      "name": "News"
     }
   ],
   "authors": [
     {
       "id": "1",
-      "name": "Ashim",
-      "avatar": "https://res.cloudinary.com/dbweny3hj/image/upload/v1747820315/emlgce1fkqhjju6ucwua.jpg",
-      "bio": "What is your name"
+      "name": "Mehul Mohan",
+      "avatar": "https://res.cloudinary.com/dbweny3hj/image/upload/v1747867059/h1x554gn0g5nycouyozq.jpg",
+      "bio": "I am a Web Developer"
     },
     {
       "id": "2",
-      "name": "Sonu",
-      "avatar": "https://res.cloudinary.com/dbweny3hj/image/upload/v1747811601/wt9a1xh931weqiixvs3r.jpg",
-      "bio": "my name is sonu"
+      "name": "Rishi Dhamala",
+      "avatar": "https://res.cloudinary.com/dbweny3hj/image/upload/v1747867181/hchzlx7hwo5jvnvlco8p.jpg",
+      "bio": "I am News Reporter."
     },
     {
       "id": "3",
-      "name": "what ",
-      "avatar": "https://res.cloudinary.com/dbweny3hj/image/upload/v1747862768/jjgft2aobzdbs8qcvjhb.png",
-      "bio": "fasdfasfasdfasdf"
+      "name": "Andrew Tate",
+      "avatar": "https://res.cloudinary.com/dbweny3hj/image/upload/v1747867296/uy2e1o61x2lepmyufgq7.jpg",
+      "bio": "I am influencer."
     }
   ]
 }
